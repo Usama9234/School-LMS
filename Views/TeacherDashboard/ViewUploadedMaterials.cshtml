@@ -1,0 +1,57 @@
+﻿@model IEnumerable<School_Management_System.Models.Teacher.LearningMaterial>
+
+@{
+    ViewData["Title"] = "ViewUploadedMaterials";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<div class="page-wrapper">
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th><label>Class Name</label></th>
+                    <th><label>Subject Name</label></th>
+                    <th><label>Title</label></th>
+                    <th><label>UploadDate</label></th>
+                    <th><label>Action</label></th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ClassName</td>
+                    <td>@item.SubjectName</td>
+                    <td>@item.Title</td>
+                    <td>@item.UploadDate</td>
+                    <td>
+                        <a asp-action="DownloadMaterial" asp-route-id="@item.Id" class="btn btn-primary">Download</a>
+                        <a asp-action="EditMaterial" asp-controller="TeacherDashboard" asp-route-id="@item.Id" class="btn btn-mini btn-outkine-orange icon-edit bigger-10">
+                            <img src="~/assets/48763_file_edit_icon.png" />
+                        </a>
+                        <a asp-action="DeleteMaterial" asp-controller="TeacherDashboard" asp-route-id="@item.Id" class="btn btn-mini btn-outkine-orange icon-edit bigger-10">
+                            <img src="~/assets/616650_bin_delete_garbage_trash_icon.png" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]';
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+    </script>
+}

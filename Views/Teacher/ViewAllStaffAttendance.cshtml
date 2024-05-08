@@ -1,0 +1,97 @@
+﻿@model IEnumerable<School_Management_System.Models.Admin.StaffAttendance>
+
+@{
+    ViewData["Title"] = "ViewAllStaffAttendance";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-wrapper">
+
+    <!-- Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Staff Attendance</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Dashboard">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">View Staff Attendance</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card Structure -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <!-- Table Heading -->
+                        <div class="row">
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <a asp-action="AddStaffAttendance" asp-controller="Teacher" class="btn btn btn-dark">
+                                        <i class="fas fa-plus-square"></i>
+                                        <span>
+                                            <strong>Mark Attendance</strong>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table Content -->
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th><label>Teacher Name</label> </th>
+                                        <th><label>Action</label> </th>
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td><span>@item.Teacher.TeacherName</span></td>
+                                        <td>
+                                            <a asp-action="ViewStaffAttendance" asp-controller="Teacher" asp-route-id="@item.TeacherId" class="btn btn-dark">
+                                                <i class="fas fa-plus-square"></i>
+                                                <span>
+                                                    <strong>ViewAttendanceDetails</strong>
+                                                </span>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]';
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+    </script>
+}
+

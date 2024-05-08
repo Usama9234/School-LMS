@@ -1,0 +1,93 @@
+﻿@model IEnumerable<School_Management_System.Models.Admin.TeacherDetails>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+
+<div class="page-wrapper">
+
+
+    <style>
+        .pagination {
+            display: inline-block;
+        }
+
+            .pagination a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+
+                .pagination a.active {
+                    background-color: #4CAF50;
+                    color: white;
+                }
+
+                .pagination a:hover:not(.active) {
+                    background-color: #ddd;
+                }
+    </style>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Dashboard</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="TeacherDashboard">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"> Dashboard</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+        <div class="row">
+            
+            <!-- Column -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card card-hover">
+                    <div class="box bg-success text-center">
+                        <a asp-action="ViewAllStudents" asp-controller="TeacherDashboard">
+                        <h1 class="font-light text-white"><i class="fas fa-user-graduate"></i></h1>
+                        <h6 class="text-white">Students</h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card card-hover">
+                    <div class="box bg-warning text-center">
+                        <a asp-action="ViewAllAssignedSubjects" asp-controller="TeacherDashboard">
+                        <h1 class="font-light text-white"><i class="fas fa-book"></i></h1>
+                        <h6 class="text-white">Subjects</h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card card-hover">
+                    <div class="box bg-danger text-center">
+                        <a asp-action="ViewAttendanceRecord" asp-controller="TeacherDashboard">
+                        <h1 class="font-light text-white"><i class="fas fa-level-up-alt"></i></h1>
+                        <h6 class="text-white">Attendance</h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<School_Management_System.Models.Admin.Parent>
+
+@{
+    ViewData["Title"] = "ViewStudentParent";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-wrapper">
+
+    <!-- Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Parents</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Dashboard">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">View Parents</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card Structure -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <!-- Table Content -->
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>@Html.DisplayNameFor(model => model.StudentName)</th>
+                                        <th>@Html.DisplayNameFor(model => model.ParentName)</th>
+                                        <th>@Html.DisplayNameFor(model => model.ParentEmail)</th>
+                                        <th>@Html.DisplayNameFor(model => model.MobileNumber)</th>
+                                        <th>@Html.DisplayNameFor(model => model.ParentAdress)</th>
+                                        <th>@Html.DisplayNameFor(model => model.Password)</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.ParentId)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.StudentName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ParentName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ParentEmail)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.MobileNumber)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ParentAdress)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Password)</td>
+                                        <td>
+                                            <a asp-action="EditParent" asp-controller="Parent" asp-route-id="@item.ParentId" class="btn btn-mini btn-outkine-orange icon-edit bigger-10"><img src="~/assets/48763_file_edit_icon.png" /></a>
+                                            <a asp-action="DeleteParent" asp-controller="Parent" asp-route-id="@item.ParentId" class="btn btn-mini btn-outkine-orange icon-edit bigger-10"><img src="~/assets/616650_bin_delete_garbage_trash_icon.png" /></a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]';
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+    </script>
+}

@@ -1,0 +1,83 @@
+﻿@model School_Management_System.Models.Admin.Expenditures
+
+@{
+    ViewData["Title"] = "DeleteExpenditure";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="page-wrapper">
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Expenditure</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Dashboard">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Delete Expenditures</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title m-b-0"><i class="fas fa-calendar-alt"></i> Are you sure you want to delete this?</h3>
+                    </div>
+
+                    <div class="row">
+                        <div class=" card-body">
+
+                            <div class="form-horizontal">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="ExpenditureTitle" class="control-label col-md-4"></label>
+                                            <span asp-for="ExpenditureTitle" class="form-control">@Model.ExpenditureTitle</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="ExpenditureAmount" class="control-label col-md-4"></label>
+                                            <span asp-for="ExpenditureAmount" class="form-control">@Model.ExpenditureAmount</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Date" class="control-label col-md-4"></label>
+                                            <span asp-for="Date" class="form-control">@Model.Date</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <form asp-action="DeleteExpenditure">
+                                        <input type="hidden" asp-for="ExpenditureId" />
+                                        <input type="submit" value="Delete" class="btn btn-danger" />
+                                        <a asp-action="ViewExpenditures" class="btn btn-default">Back to List</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+

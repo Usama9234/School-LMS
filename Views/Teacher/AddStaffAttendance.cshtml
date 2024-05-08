@@ -1,0 +1,93 @@
+﻿@model School_Management_System.Models.Admin.StaffAttendance
+
+@{
+    ViewData["Title"] = "AddStaffAttendance";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-wrapper">
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Staff Attendance</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Dashboard">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Add Staff Attendance</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title m-b-0"><i class="fas fa-users"></i> Add Staff Attendance</h5>
+                    </div>
+
+                    <div class="row">
+                        <div class=" card-body">
+                            <form asp-action="AddStaffAttendance" asp-controller="Teacher" method="post" enctype="multipart/form-data">
+
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Teachers</label>
+                                        <select asp-for="TeacherId" class="form-control">
+                                            <option value="">Select a Teacher</option>
+                                            @foreach (var item in Model.TeachersList)
+                                            {
+                                                <option value="@item.TeacherId">@item.TeacherName</option>
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Date" class="control-label col-md-2"></label>
+                                        <div class="col-md-10">
+                                            <input asp-for="Date" class="form-control" type="date"/>
+                                            <span asp-validation-for="Date" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Remarks" class="control-label col-md-2"></label>
+                                        <div class="col-md-10">
+                                            <input asp-for="Remarks" class="form-control" />
+                                            <span asp-validation-for="Remarks" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <button type="submit" class="btn btn-default">Mark</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -1,0 +1,113 @@
+﻿@model IEnumerable<School_Management_System.Models.Teacher.Marks>
+
+@{
+    ViewData["Title"] = "MarkStudentAttendance";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+@using (Html.BeginForm("MarkStudentMarks", "TeacherDashboard", FormMethod.Post))
+{
+    <div class="page-wrapper">
+        <!-- Breadcrumb -->
+        <div class="page-breadcrumb">
+            <!-- Your existing breadcrumb code here -->
+        </div>
+
+        <!-- Input fields for TestName and TotalMarks -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="testName">Test Name:</label>
+                        <input type="text" id="testName" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="totalMarks">Total Marks:</label>
+                        <input type="number" id="totalMarks" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Structure -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Class Name</th>
+                                            <th>Student Name</th>
+                                            <th>Roll No</th>
+                                            <th>Subject Name</th>
+                                            <th>Test Name</th>
+                                            <th>Obtained Marks</th>
+                                            <th>TotalMarks</th>
+                                            <th>Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item.ClassName</td>
+                                                <td>@item.StudentName</td>
+                                                <td>@item.RollNo</td>
+                                                <td>@item.SubjectName</td>
+                                                <td><input type="text" name="TestName" value="" class="form-control" /></td>
+                                                <td><input type="number" name="ObtainedMarks" value="" class="form-control" /></td>
+                                                <td><input type="number" name="TotalMarks" value="" class="form-control" /></td>
+                                                <td>@DateTime.Now.ToString("yyyy-MM-dd")</td>
+                                                <td>
+                                                    <button type="submit" class="btn btn-dark">
+                                                        <i class="fas fa-plus-square"></i>
+                                                        <span>
+                                                            <strong>Mark</strong>
+                                                        </span>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <input type="hidden" name="StudentId" value="@item.StudentId" />
+                                                    <input type="hidden" name="SubjectId" value="@item.SubjectId" />
+                                                    <input type="hidden" name="ClassId" value="@item.ClassId" />
+                                                    <input type="hidden" name="Date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                                    <input type="hidden" name="ClassName" value="@item.ClassName" />
+                                                    <input type="hidden" name="SubjectName" value="@item.SubjectName" />
+                                                    <input type="hidden" name="StudentName" value="@item.StudentName" />
+                                                    <input type="hidden" name="RollNo" value="@item.RollNo" />
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts
+{
+    <script>
+        // Function to update test name and total marks for all students
+        function updateTestDetails() {
+            var testName = $("#testName").val();
+            var totalMarks = $("#totalMarks").val();
+            $("input[name='TestName']").val(testName); // Update test name for all students
+            $("input[name='TotalMarks']").val(totalMarks); // Update total marks for all students
+        }
+
+        // Call the function initially and on change of input fields
+        $(document).ready(updateTestDetails);
+        $("#testName, #totalMarks").change(updateTestDetails);
+    </script>
+}

@@ -1,0 +1,130 @@
+﻿@model IEnumerable<School_Management_System.Models.Admin.ClassWithStudentCount>
+
+@{
+    ViewBag.Title = "ViewIncome";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-wrapper">
+
+    <div class="page-breadcrumb">
+
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Income</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Dashboard">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">View Income</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="row">
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>
+                                            <label>ClassName</label>
+                                        </th>
+                                        <th>
+                                            <label>StudentsCount</label>
+                                        </th>
+                                        <th>
+                                            <label>Income</label>
+                                        </th>
+                                    </tr>
+                                    
+                                </thead>
+                                
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ClassName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.StudentCount)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ClassIncome)
+                                        </td>
+                                    </tr>
+                                }
+
+                            </table>
+
+                            <table class="table table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>
+                                            <label>Total Income</label>
+                                        </th>
+                                        <th>
+                                            <label> @ViewBag.SumOfAllClassesIncome</label>
+                                        </th>
+                                    </tr>
+
+                                </thead>
+
+                            </table>
+
+                            <style>
+                                .pagination {
+                                    display: inline-block;
+                                }
+
+                                    .pagination a {
+                                        color: black;
+                                        float: left;
+                                        padding: 8px 16px;
+                                        text-decoration: none;
+                                    }
+
+                                        .pagination a.active {
+                                            background-color: #4CAF50;
+                                            color: white;
+                                        }
+
+                                        .pagination a:hover:not(.active) {
+                                            background-color: #ddd;
+                                        }
+                            </style>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+        function Delete(id) {
+            alertify.confirm('Matrix International School', 'Are you sure?', function () {
+                window.location.href = '@Url.Action("DeleteSession", "Settings")/' + id;
+            }, null);
+        }
+    </script>
+
+}
+
+

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<School_Management_System.Models.Admin.StudentDetails>
+
+@{
+    ViewData["Title"] = "ViewStudents";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<div class="page-wrapper">
+
+    <!-- Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Subjects</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="TeacherDashboard">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"> View All Subjects</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card Structure -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <!-- Table Heading -->
+                        <div class="row">
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+
+                        <!-- Table Content -->
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        @* <th><label>Class Name</label> </th> *@
+                                        <th><label>Student Name</label> </th>
+                                        <th><label>Student Roll No</label> </th>
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                       @*  <td>@item.Class.ClassName</td> *@
+                                        <td>@item.StudentName</td>
+                                        <td>@item.StudentRollNo</td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]';
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+    </script>
+}

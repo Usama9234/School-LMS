@@ -1,0 +1,110 @@
+﻿@model IEnumerable<School_Management_System.Models.Teacher.StudentAttendance>
+
+@{
+    ViewData["Title"] = "MarkStudentAttendance";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<div class="page-wrapper">
+    <!-- Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Students</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="TeacherDashboard">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Student Attendance</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card Structure -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Class Name</th>
+                                        <th>Student Name</th>
+                                        <th>Roll No</th>
+                                        <th>Subject Name</th>
+                                        <th>Remarks</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <form method="post" asp-action="MarkStudentAttendance">
+                                        <tr>
+                                            <td>@item.ClassName</td>
+                                            <td>@item.StudentName</td>
+                                            <td>@item.RollNo</td>
+                                            <td>@item.SubjectName</td>
+                                            <td>
+                                                <input type="text" name="Remarks" value="" />
+                                                <input type="hidden" name="StudentId" value="@item.StudentId" />
+                                                <input type="hidden" name="SubjectId" value="@item.SubjectId" />
+                                                <input type="hidden" name="ClassId" value="@item.ClassId" />
+                                                <input type="hidden" name="Date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                                <input type="hidden" name="ClassName" value="@item.ClassName" />
+                                                <input type="hidden" name="SubjectName" value="@item.SubjectName" />
+                                                <input type="hidden" name="StudentName" value="@item.StudentName" />
+                                                <input type="hidden" name="RollNo" value="@item.RollNo" />
+                                            </td>
+                                            <td>@DateTime.Now.ToString("yyyy-MM-dd")</td>
+                                            <td>
+                                                    @if (!item.IsAttendanceMarked)
+                                                    {
+                                                    <button type="submit" class="btn btn-dark">
+                                                        <i class="fas fa-plus-square"></i>
+                                                        <span>
+                                                            <strong>MarkAttendance</strong>
+                                                        </span>
+                                                    </button>
+                                                    }
+                                                    else
+                                                    {
+                                                    <button class="btn btn-dark" disabled>
+                                                        <i class="fas fa-plus-square"></i>
+                                                        <span>
+                                                            <strong>Attendance Marked</strong>
+                                                        </span>
+                                                    </button>
+                                                    }
+                                            </td>
+                                        </tr>
+                                        </form>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]';
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+    </script>
+
+    
+}

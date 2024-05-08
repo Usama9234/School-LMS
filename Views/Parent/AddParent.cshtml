@@ -1,0 +1,174 @@
+﻿@model School_Management_System.Models.Admin.Parent
+@{
+    ViewBag.Title = "AddParent";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-wrapper">
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Parents</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Dashboard">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Add Parent</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title m-b-0"><i class="fas fa-users"></i> Add Parent</h5>
+                    </div>
+
+                    <div class="row">
+                        <div class=" card-body">
+                            <form asp-action="AddParent" asp-controller="Parent" method="post" enctype="multipart/form-data">
+
+                                <div class="form-horizontal">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Classes</label>
+                                        <select asp-for="ClassId" class="form-control" id="classDropdown">
+                                            <option value="">Select a Class</option>
+                                            @foreach (var item in Model.ClassesList)
+                                            {
+                                                <option value="@item.ClassId">@item.ClassName</option>
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Students</label>
+                                        <select asp-for="StudentId" class="form-control" id="studentDropdown">
+                                            <option value="">Select a Student</option>
+                                            <!-- Students will be dynamically added here based on the selected class -->
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="ParentName" class="control-label col-md-2"></label>
+                                        <div class="col-md-10">
+                                            <input asp-for="ParentName" class="form-control" />
+                                            <span asp-validation-for="ParentName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="MobileNumber" class="control-label col-md-2"></label>
+                                        <div class="col-md-10">
+                                            <input asp-for="MobileNumber" class="form-control" />
+                                            <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="form-group">
+                                            <label asp-for="ParentEmail" class="control-label col-md-2"></label>
+                                            <div class="col-md-10">
+                                                <input asp-for="ParentEmail" class="form-control" />
+                                                <span asp-validation-for="ParentEmail" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label asp-for="ParentAdress" class="control-label col-md-2"></label>
+                                        <div class="col-md-10">
+                                            <input asp-for="ParentAdress" class="form-control" />
+                                            <span asp-validation-for="ParentAdress" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label asp-for="Password" class="control-label col-md-2"></label>
+                                        <div class="col-md-10">
+                                            <input asp-for="Password" class="form-control" />
+                                            <span asp-validation-for="Password" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    @section scripts {
+                                        <script>
+                                            $(document).ready(function () {
+                                                // Trigger change event on class dropdown to load students on page load
+                                                $("#classDropdown").change();
+
+                                                $("#classDropdown").change(function () {
+                                                    var selectedClassId = $(this).val();
+
+                                                    // Clear the students dropdown
+                                                    $("#studentDropdown").empty().append('<option value="">Select a Student</option>');
+
+                                                    if (selectedClassId) {
+                                                        // Make an AJAX call to fetch students for the selected class
+                                                        $.ajax({
+                                                            url: "/Parent/GetStudents", // Replace ControllerName with your actual controller name
+                                                            type: "GET",
+                                                            data: { classId: selectedClassId },
+                                                            success: function (data) {
+                                                                console.log("Received data from server:", data); // Log the received data
+
+                                                                // Check if data is an array and not empty
+                                                                if (Array.isArray(data) && data.length > 0) {
+                                                                    // Populate the students dropdown
+                                                                    data.forEach(function (student) {
+                                                                        $("#studentDropdown").append('<option value="' + student.studentId + '">' + student.studentName + '</option>');
+                                                                    });
+                                                                } else {
+                                                                    console.error("Received empty or invalid data.");
+                                                                }
+                                                            },
+                                                            error: function (xhr, status, error) {
+                                                                console.error("AJAX request failed:", error);
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                    }
+
+
+
+
+
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <button type="submit" class="btn btn-default">Create</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
